@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penilaian Antar Teman PAIBP - SMAN 1 Krembung</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Amiriri for Islamic touch -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .font-arabic {
+            font-family: 'Amiri', serif;
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.1), 0 8px 10px -6px rgba(5, 150, 105, 0.05);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+            }
+            .print-card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-gray-800 antialiased">
+
+    <header class="bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-900 text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4 text-center sm:text-left">
+                <a href="#" class="bg-white p-1.5 rounded-full shadow-md hover:scale-105 transition-transform">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjhEe7DsQaweQWtckuBY0QdRPB_J0RbHqfSXb0fFnNGOQYwfzbn9SyTV1WORteNpd7S3rcGj3FYpaCf0X7tjQpcXoDfErD-aWPD9kTf-6auJIoAZ3ETmXpvuoVydS7H87HO-vidqv4ECyayUG4dFJNZNMuVWD2lUyaMaF7ox5BYCfAksicgx7ryvy6V56Z/s1600/LOGO%20SMANIKRE%20(1).png" 
+                         alt="Logo SMANIKRE" 
+                         class="h-16 w-16 sm:h-20 sm:w-20 object-contain">
+                </a>
+                <div>
+                    <span class="bg-emerald-600/80 text-emerald-100 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-emerald-400">
+                        SMA NEGERI 1 KREMBUNG
+                    </span>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight mt-1 text-amber-300">
+                        Aplikasi Penilaian Antar Teman
+                    </h1>
+                    <p class="text-xs sm:text-sm text-emerald-100 font-light">
+                        Pendidikan Agama Islam & Budi Pekerti • Kurikulum Merdeka & Deep Learning
+                    </p>
+                </div>
+            </div>
+            
+            <button onclick="toggleSettingsModal()" class="no-print bg-emerald-700/70 hover:bg-emerald-600 text-xs flex items-center gap-2 px-3 py-2 rounded-lg border border-emerald-500/50 transition">
+                <i class="fa-solid fa-gear text-amber-300"></i>
+                <span>Setting Sheet</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-grow space-y-6">
+
+        <!-- Banner Info Kurikulum -->
+        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl shadow-sm flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-emerald-600 text-xl mt-0.5"></i>
+            <div class="text-xs sm:text-sm text-emerald-900 leading-relaxed">
+                <span class="font-bold">Panduan Pengisian:</span> Penilaian antar teman ini bertujuan melatih kejujuran, kepedulian, dan refleksi diri (*Mindful, Meaningful, Joyful*) pada materi <strong>Q.S. Al-Ma'idah: 48</strong> (Berkompetisi dalam Kebaikan), <strong>Q.S. At-Taubah: 105</strong> (Etos Kerja), dan <strong>Syu'abul Iman</strong>. Isi dengan jujur dan konstruktif!
+            </div>
+        </div>
+
+        <!-- FORM UTAMA -->
+        <form id="assessmentForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+
+            <!-- CARD 1: IDENTITAS PENILAI & TEMAN -->
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 space-y-6">
+                <div class="border-b border-gray-100 pb-3 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-address-card text-emerald-600"></i>
+                        Identitas Penilai & Teman yang Dinilai
+                    </h2>
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Langkah 1 dari 3</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- SISI PENILAI -->
+                    <div class="bg-gray-50/80 p-4 rounded-xl border border-gray-200/80 space-y-4">
+                        <div class="flex items-center gap-2 text-emerald-800 font-semibold text-sm border-b pb-2">
+                            <i class="fa-solid fa-user-pen"></i>
+                            <span>Data Diri Penilai (Anda)</span>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Nama Lengkap Penilai <span class="text-red-500">*</span></label>
+                            <input type="text" id="penilaiNama" required placeholder="Contoh: Ahmad Maulana"
+                                class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Kelas <span class="text-red-500">*</span></label>
+                                <select id="penilaiKelas" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <!-- Populated dynamically via JS X-1 to X-12 -->
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">No. Absen <span class="text-red-500">*</span></label>
+                                <select id="penilaiAbsen" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    <option value="">-- Absen --</option>
+                                    <!-- Populated dynamically 1 to 36 -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SISI TEMAN YANG DINILAI -->
+                    <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100 space-y-4">
+                        <div class="flex items-center gap-2 text-emerald-800 font-semibold text-sm border-b border-emerald-200/80 pb-2">
+                            <i class="fa-solid fa-user-check text-emerald-600"></i>
+                            <span>Data Teman yang Dinilai</span>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Nama Teman yang Dinilai <span class="text-red-500">*</span></label>
+                            <input type="text" id="dinilaiNama" required placeholder="Contoh: Siti Nurhaliza"
+                                class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Kelas Teman <span class="text-red-500">*</span></label>
+                                <select id="dinilaiKelas" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <!-- Populated dynamically via JS X-1 to X-12 -->
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">No. Absen Teman <span class="text-red-500">*</span></label>
+                                <select id="dinilaiAbsen" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    <option value="">-- Absen --</option>
+                                    <!-- Populated dynamically 1 to 36 -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KETERANGAN SKOR -->
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs sm:text-sm text-amber-900 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                <div class="bg-white p-2 rounded-lg border border-amber-100 shadow-xs">
+                    <span class="font-bold text-amber-700 block">Skor 4</span>
+                    <span class="text-gray-600 text-xs">Selalu (Konsisten)</span>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-amber-100 shadow-xs">
+                    <span class="font-bold text-emerald-700 block">Skor 3</span>
+                    <span class="text-gray-600 text-xs">Sering (Sesekali disingat)</span>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-amber-100 shadow-xs">
+                    <span class="font-bold text-blue-700 block">Skor 2</span>
+                    <span class="text-gray-600 text-xs">Kadang-kadang</span>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-amber-100 shadow-xs">
+                    <span class="font-bold text-red-700 block">Skor 1</span>
+                    <span class="text-gray-600 text-xs">Tidak Pernah</span>
+                </div>
+            </div>
+
+            <!-- CARD 2: LEMBAR PENILAIAN -->
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 space-y-6">
+                <div class="border-b border-gray-100 pb-3 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-emerald-600"></i>
+                        Lembar Penilaian Sikap & Perilaku Nyata
+                    </h2>
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Langkah 2 dari 3</span>
+                </div>
+
+                <!-- SUB MATERI A -->
+                <div class="space-y-4">
+                    <div class="bg-emerald-900 text-white px-4 py-2.5 rounded-xl font-semibold text-sm flex items-center justify-between shadow-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-700 text-amber-300 font-bold px-2 py-0.5 rounded text-xs">A</span>
+                            <span>Q.S. Al-Ma'idah: 48 (Berkompetisi dalam Kebaikan)</span>
+                        </div>
+                        <span class="font-arabic text-amber-300 text-base hidden sm:inline">فَاسْتَبِقُوا الْخَيْرَاتِ</span>
+                    </div>
+
+                    <div class="space-y-3 pl-0 sm:pl-2" id="sectionA">
+                        <!-- Indikator 1 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">1. Inisiatif & Proaktif</span>
+                                    <p class="text-sm font-medium text-gray-800">Segera memulai tugas kelompok/diskusi tanpa menunda-nunda waktu (*Fastabiqul Khairat*).</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q1">
+                                    <!-- Radio items dynamically created or hardcoded for efficiency -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Indikator 2 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">2. Kualitas Kerja Terbaik</span>
+                                    <p class="text-sm font-medium text-gray-800">Berusaha memberikan kontribusi pemikiran atau karya terbaik untuk kelompok, bukan sekadar "asal selesai".</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Indikator 3 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">3. Menghargai Keberagaman</span>
+                                    <p class="text-sm font-medium text-gray-800">Menerima dan menghargai perbedaan pendapat antar anggota kelompok dengan santun tanpa memaksakan kehendak.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB MATERI B -->
+                <div class="space-y-4 pt-2">
+                    <div class="bg-emerald-900 text-white px-4 py-2.5 rounded-xl font-semibold text-sm flex items-center justify-between shadow-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-700 text-amber-300 font-bold px-2 py-0.5 rounded text-xs">B</span>
+                            <span>Q.S. At-Taubah: 105 (Etos Kerja Islam & Tanggung Jawab)</span>
+                        </div>
+                        <span class="font-arabic text-amber-300 text-base hidden sm:inline">وَقُلِ اعْمَلُوا</span>
+                    </div>
+
+                    <div class="space-y-3 pl-0 sm:pl-2" id="sectionB">
+                        <!-- Indikator 4 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">4. Kerja Keras & Tekun</span>
+                                    <p class="text-sm font-medium text-gray-800">Menunjukkan kesungguhan, fokus, dan tidak mudah menyerah saat menghadapi kesulitan tugas.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q4"></div>
+                            </div>
+                        </div>
+
+                        <!-- Indikator 5 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">5. Integritas & Kejujuran</span>
+                                    <p class="text-sm font-medium text-gray-800">Bekerja secara jujur (tidak menjiplak/menyontek) dan bersedia diuji/dipertanggungjawabkan karyanya.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q5"></div>
+                            </div>
+                        </div>
+
+                        <!-- Indikator 6 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">6. Kedisiplinan Waktu</span>
+                                    <p class="text-sm font-medium text-gray-800">Menyelesaikan bagian tugasnya tepat waktu sesuai kesepakatan kelompok.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB MATERI C -->
+                <div class="space-y-4 pt-2">
+                    <div class="bg-emerald-900 text-white px-4 py-2.5 rounded-xl font-semibold text-sm flex items-center justify-between shadow-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-700 text-amber-300 font-bold px-2 py-0.5 rounded text-xs">C</span>
+                            <span>Syu'abul Iman (Cabang-cabang Iman dalam Tindakan)</span>
+                        </div>
+                        <span class="font-arabic text-amber-300 text-base hidden sm:inline">شُعَبُ الْإِيمَانِ</span>
+                    </div>
+
+                    <div class="space-y-3 pl-0 sm:pl-2" id="sectionC">
+                        <!-- Indikator 7 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">7. Lisan Santun (Dimensi Lisan)</span>
+                                    <p class="text-sm font-medium text-gray-800">Menggunakan tutur kata yang baik, menyejukkan, dan tidak menyakiti perasaan teman saat berdiskusi.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q7"></div>
+                            </div>
+                        </div>
+
+                        <!-- Indikator 8 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">8. Empati & Kepedulian (Dimensi Perbuatan)</span>
+                                    <p class="text-sm font-medium text-gray-800">Mau membantu teman kelompok yang mengalami kesulitan dalam memahami materi atau menyelesaikan tugas.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q8"></div>
+                            </div>
+                        </div>
+
+                        <!-- Indikator 9 -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-emerald-300 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-wide">9. Keikhlasan & Rendah Hati (Dimensi Hati)</span>
+                                    <p class="text-sm font-medium text-gray-800">Mau menerima kritik/saran dari teman lain dengan terbuka demi perbaikan bersama.</p>
+                                </div>
+                                <div class="flex gap-2 justify-between sm:justify-end" data-q="q9"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CARD 3: UMPAN BALIK KUALITATIF & LIVE CALCULATOR -->
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 space-y-6">
+                <div class="border-b border-gray-100 pb-3 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-emerald-600"></i>
+                        Umpan Balik Konstruktif (Deep Learning)
+                    </h2>
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Langkah 3 dari 3</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-star text-amber-500 mr-1"></i> Hal Paling Positif (Strengths) <span class="text-red-500">*</span>
+                        </label>
+                        <p class="text-xs text-gray-500 mb-2">Sebutkan kebaikan atau kelebihan dominan temanmu saat kerja kelompok ini.</p>
+                        <textarea id="halPositif" required rows="3" placeholder="Contoh: Sangat aktif memberi ide yang bagus dan selalu menyapa teman dengan sopan..."
+                            class="w-full p-3 text-sm rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none transition resize-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-seedling text-emerald-600 mr-1"></i> Saran Pengembangan Diri (Growth Mindset) <span class="text-red-500">*</span>
+                        </label>
+                        <p class="text-xs text-gray-500 mb-2">Berikan saran membangun agar temanmu semakin mencerminkan Etos Kerja & Fastabiqul Khairat.</p>
+                        <textarea id="saranPengembangan" required rows="3" placeholder="Contoh: Kedepannya diharapkan bisa lebih disiplin mengumpulkan bagian tugas tepat waktu..."
+                            class="w-full p-3 text-sm rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none transition resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- LIVE SCORE SUMMARY BOX -->
+                <div class="bg-gradient-to-br from-emerald-900 to-teal-800 text-white p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-emerald-700/80 p-3.5 rounded-2xl text-amber-300 text-3xl font-bold flex items-center justify-center h-16 w-16 border border-emerald-500/50">
+                            <span id="scoreDisplay">0</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-emerald-200 uppercase tracking-widest font-semibold block">Ringkasan Nilai Akhir</span>
+                            <div class="text-lg font-bold text-white flex items-center gap-2">
+                                <span id="nilaiAkhirDisplay">0.0</span> / 100
+                            </div>
+                            <p id="kategoriDisplay" class="text-xs text-amber-300 font-medium mt-0.5">Belum semua indikator diisi</p>
+                        </div>
+                    </div>
+
+                    <div class="text-right w-full sm:w-auto">
+                        <button type="submit" id="submitBtn" 
+                            class="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-emerald-950 font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Kirim Penilaian Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- SUCCESS / RESULT DISPLAY CARD (HIDDEN INITIALLY) -->
+        <div id="resultCard" class="hidden bg-white rounded-2xl p-6 shadow-xl border border-emerald-200 print-card space-y-6">
+            <div class="text-center space-y-2 border-b pb-4 border-gray-200">
+                <div class="inline-flex p-3 bg-emerald-100 text-emerald-700 rounded-full mb-1 no-print">
+                    <i class="fa-solid fa-circle-check text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800">Bukti Lembar Penilaian Antar Teman</h3>
+                <p class="text-sm text-gray-600">SMA Negeri 1 Krembung • Mata Pelajaran PAIBP</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div>
+                    <span class="text-xs font-semibold text-gray-500 uppercase block">Penilai:</span>
+                    <p class="font-bold text-gray-800" id="resPenilai">-</p>
+                    <p class="text-xs text-gray-600">Kelas: <span id="resPenilaiKelas">-</span> | Absen: <span id="resPenilaiAbsen">-</span></p>
+                </div>
+                <div>
+                    <span class="text-xs font-semibold text-gray-500 uppercase block">Teman yang Dinilai:</span>
+                    <p class="font-bold text-gray-800" id="resDinilai">-</p>
+                    <p class="text-xs text-gray-600">Kelas: <span id="resDinilaiKelas">-</span> | Absen: <span id="resDinilaiAbsen">-</span></p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-emerald-800 uppercase block">Hasil Kalkulasi Nilai</span>
+                    <div class="text-2xl font-extrabold text-emerald-900" id="resNilai">0 / 100</div>
+                </div>
+                <div class="text-right">
+                    <span id="resKategoriBadge" class="px-3 py-1 bg-emerald-600 text-white font-bold rounded-full text-xs">
+                        -
+                    </span>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-sm">
+                <div class="border-b pb-2">
+                    <span class="font-bold text-gray-700 block text-xs">Apresiasi Hal Positif:</span>
+                    <p class="text-gray-800 italic" id="resPositif">-</p>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-700 block text-xs">Saran Growth Mindset:</span>
+                    <p class="text-gray-800 italic" id="resSaran">-</p>
+                </div>
+            </div>
+
+            <div class="no-print pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 transition">
+                    <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+                </button>
+                <button onclick="resetForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 transition">
+                    <i class="fa-solid fa-rotate-left"></i> Isi Penilaian Baru
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- SETTINGS MODAL FOR GOOGLE APPS SCRIPT URL -->
+    <div id="settingsModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
+            <button onclick="toggleSettingsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="flex items-center gap-3 border-b pb-3 border-gray-100">
+                <i class="fa-solid fa-file-excel text-emerald-600 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-base">Pengaturan Integrasi Google Sheets</h3>
+                    <p class="text-xs text-gray-500">Khusus Guru / Admin (Bu Ulfatul Husna)</p>
+                </div>
+            </div>
+
+            <p class="text-xs text-gray-600 leading-relaxed">
+                Masukkan URL Google Apps Script Web App agar semua hasil penilaian siswa SMA Negeri 1 Krembung langsung tersimpan otomatis ke Spreadsheet Anda.
+            </p>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">Web App URL Google Sheets</label>
+                <input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/AKfycbx.../exec"
+                    class="w-full p-2.5 text-xs rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+
+            <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-200 text-xs text-emerald-900 space-y-1">
+                <p class="font-bold"><i class="fa-solid fa-code text-emerald-700"></i> Kode Google Apps Script (Ringkas):</p>
+                <button onclick="copyAppsScriptCode()" class="text-emerald-700 underline hover:text-emerald-900 font-semibold text-xs">
+                    Klik untuk Copy Kode Apps Script
+                </button>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="saveSettings()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg">
+                    Simpan Pengaturan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 mt-12 border-t-4 border-amber-400">
+        <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div class="flex items-center gap-3">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjhEe7DsQaweQWtckuBY0QdRPB_J0RbHqfSXb0fFnNGOQYwfzbn9SyTV1WORteNpd7S3rcGj3FYpaCf0X7tjQpcXoDfErD-aWPD9kTf-6auJIoAZ3ETmXpvuoVydS7H87HO-vidqv4ECyayUG4dFJNZNMuVWD2lUyaMaF7ox5BYCfAksicgx7ryvy6V56Z/s1600/LOGO%20SMANIKRE%20(1).png" 
+                     alt="Logo SMANIKRE Footer" class="h-10 w-10 object-contain bg-white rounded-full p-0.5">
+                <div>
+                    <p class="text-sm font-bold text-white">SMA Negeri 1 Krembung</p>
+                    <p class="text-xs text-amber-300 font-medium">
+                        disusun oleh : Ulfatul Husna, S.Ag.,M.Pd.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-xs text-gray-400">
+                <p>Mata Pelajaran Pendidikan Agama Islam & Budi Pekerti</p>
+                <p class="text-emerald-400">© <span id="currentYear"></span> SMAN 1 Krembung. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const TOTAL_QUESTIONS = 9;
+        const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby0IvkycBUNlqAnFA7ZDQ5TR7bbc89DZvtCAExLGndJ_aWr9u7vWe2cM8Oh0zlQCUNy/exec';
+        let scriptUrl = localStorage.getItem('smanikre_script_url') || DEFAULT_SCRIPT_URL;
+
+        // Populate Class options (X-1 to X-12) and Absen (1 to 36)
+        window.addEventListener('DOMContentLoaded', () => {
+            populateDropdowns('penilaiKelas', 'dinilaiKelas', 'X-', 12);
+            populateDropdowns('penilaiAbsen', 'dinilaiAbsen', '', 36);
+            renderRadioButtons();
+            
+            // Tampilkan URL aktif pada input modal pengaturan
+            if (document.getElementById('scriptUrlInput')) {
+                document.getElementById('scriptUrlInput').value = scriptUrl;
+            }
+        });
+
+        function populateDropdowns(id1, id2, prefix, count) {
+            const sel1 = document.getElementById(id1);
+            const sel2 = document.getElementById(id2);
+            
+            for (let i = 1; i <= count; i++) {
+                const val = prefix + i;
+                const opt1 = document.createElement('option');
+                opt1.value = val;
+                opt1.textContent = val;
+                sel1.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = val;
+                opt2.textContent = val;
+                sel2.appendChild(opt2);
+            }
+        }
+
+        function renderRadioButtons() {
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                const container = document.querySelector(`[data-q="q${i}"]`);
+                if (!container) continue;
+
+                let html = '';
+                for (let score = 4; score >= 1; score--) {
+                    html += `
+                        <label class="flex items-center gap-1 bg-white hover:bg-emerald-50 px-3 py-1.5 rounded-lg border border-gray-300 cursor-pointer transition text-xs font-semibold select-none">
+                            <input type="radio" name="q${i}" value="${score}" required onchange="calculateScore()" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                            <span>${score}</span>
+                        </label>
+                    `;
+                }
+                container.innerHTML = html;
+            }
+        }
+
+        function calculateScore() {
+            let total = 0;
+            let answered = 0;
+
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                const checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if (checked) {
+                    total += parseInt(checked.value);
+                    answered++;
+                }
+            }
+
+            document.getElementById('scoreDisplay').textContent = total;
+            
+            const nilaiAkhir = ((total / 36) * 100).toFixed(1);
+            document.getElementById('nilaiAkhirDisplay').textContent = nilaiAkhir;
+
+            const kategoriElem = document.getElementById('kategoriDisplay');
+
+            if (answered < TOTAL_QUESTIONS) {
+                kategoriElem.textContent = `Terisi ${answered} dari ${TOTAL_QUESTIONS} indikator`;
+                kategoriElem.className = "text-xs text-amber-300 font-medium mt-0.5";
+            } else {
+                let text = "";
+                let colorClass = "";
+                if (nilaiAkhir >= 86) {
+                    text = "Role Model (Sangat Baik)";
+                    colorClass = "text-amber-300 font-bold";
+                } else if (nilaiAkhir >= 71) {
+                    text = "Mencapai Ketuntasan (Baik)";
+                    colorClass = "text-emerald-200 font-bold";
+                } else if (nilaiAkhir >= 56) {
+                    text = "Belum Tuntas (Perlu Bimbingan)";
+                    colorClass = "text-amber-200 font-bold";
+                } else {
+                    text = "Belum Tuntas (Perlu Intervensi Khusus)";
+                    colorClass = "text-red-300 font-bold";
+                }
+                kategoriElem.textContent = text;
+                kategoriElem.className = `text-xs mt-0.5 ${colorClass}`;
+            }
+
+            return { total, nilaiAkhir, answered };
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const calc = calculateScore();
+            if (calc.answered < TOTAL_QUESTIONS) {
+                alert("Harap isi semua 9 indikator penilaian sebelum mengirim!");
+                return;
+            }
+
+            const formData = {
+                timestamp: new Date().toLocaleString('id-ID'),
+                penilaiNama: document.getElementById('penilaiNama').value.trim(),
+                penilaiKelas: document.getElementById('penilaiKelas').value,
+                penilaiAbsen: document.getElementById('penilaiAbsen').value,
+                dinilaiNama: document.getElementById('dinilaiNama').value.trim(),
+                dinilaiKelas: document.getElementById('dinilaiKelas').value,
+                dinilaiAbsen: document.getElementById('dinilaiAbsen').value,
+                halPositif: document.getElementById('halPositif').value.trim(),
+                saranPengembangan: document.getElementById('saranPengembangan').value.trim(),
+                skorTotal: calc.total,
+                nilaiAkhir: calc.nilaiAkhir,
+                kategori: document.getElementById('kategoriDisplay').textContent
+            };
+
+            // Add indicator scores
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                formData[`q${i}`] = document.querySelector(`input[name="q${i}"]:checked`).value;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Memproses...`;
+
+            // If scriptUrl is set, try sending data to Google Sheets
+            if (scriptUrl) {
+                try {
+                    await fetch(scriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+                } catch (err) {
+                    console.warn("Gagal mengirim ke webhook Google Sheets:", err);
+                }
+            }
+
+            // Display Result Card
+            document.getElementById('resPenilai').textContent = formData.penilaiNama;
+            document.getElementById('resPenilaiKelas').textContent = formData.penilaiKelas;
+            document.getElementById('resPenilaiAbsen').textContent = formData.penilaiAbsen;
+            
+            document.getElementById('resDinilai').textContent = formData.dinilaiNama;
+            document.getElementById('resDinilaiKelas').textContent = formData.dinilaiKelas;
+            document.getElementById('resDinilaiAbsen').textContent = formData.dinilaiAbsen;
+
+            document.getElementById('resNilai').textContent = `${formData.nilaiAkhir} / 100 (Skor: ${formData.skorTotal}/36)`;
+            document.getElementById('resKategoriBadge').textContent = formData.kategori;
+            
+            document.getElementById('resPositif').textContent = `"${formData.halPositif}"`;
+            document.getElementById('resSaran').textContent = `"${formData.saranPengembangan}"`;
+
+            // Hide form and show result
+            document.getElementById('assessmentForm').classList.add('hidden');
+            document.getElementById('resultCard').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
+
+        function resetForm() {
+            document.getElementById('assessmentForm').reset();
+            document.getElementById('assessmentForm').classList.remove('hidden');
+            document.getElementById('resultCard').classList.add('hidden');
+            calculateScore();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleSettingsModal() {
+            const modal = document.getElementById('settingsModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function saveSettings() {
+            const url = document.getElementById('scriptUrlInput').value.trim();
+            localStorage.setItem('smanikre_script_url', url);
+            scriptUrl = url;
+            alert("Pengaturan Google Sheets berhasil disimpan!");
+            toggleSettingsModal();
+        }
+
+        function copyAppsScriptCode() {
+            const code = `function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  
+  // Append header if empty
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      "Timestamp", "Nama Penilai", "Kelas Penilai", "Absen Penilai",
+      "Nama Dinilai", "Kelas Dinilai", "Absen Dinilai",
+      "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9",
+      "Skor Total", "Nilai Akhir", "Kategori", "Hal Positif", "Saran"
+    ]);
+  }
+  
+  sheet.appendRow([
+    data.timestamp, data.penilaiNama, data.penilaiKelas, data.penilaiAbsen,
+    data.dinilaiNama, data.dinilaiKelas, data.dinilaiAbsen,
+    data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7, data.q8, data.q9,
+    data.skorTotal, data.nilaiAkhir, data.kategori, data.halPositif, data.saranPengembangan
+  ]);
+  
+  return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+}`;
+
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Kode Apps Script berhasil disalin ke clipboard! Tempelkan di Extensions > Apps Script pada Google Sheets Anda.");
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert("Kode Apps Script berhasil disalin!");
+            });
+        }
+    </script>
+</body>
+</html>
